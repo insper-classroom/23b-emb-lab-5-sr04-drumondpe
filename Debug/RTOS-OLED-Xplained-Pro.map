@@ -11496,13 +11496,13 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x00402de8       0xb8 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.o
  .text.prvTimerTask
                 0x00402ea0      0x210 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.o
- .text.but_callback
+ .text.button_callback
                 0x004030b0       0x24 src/main.o
-                0x004030b0                but_callback
+                0x004030b0                button_callback
  .text.echo_callback
                 0x004030d4       0x8c src/main.o
                 0x004030d4                echo_callback
- .text.task_oled
+ .text.oled_task
                 0x00403160      0x12c src/main.o
  .text.usart_serial_getchar
                 0x0040328c       0xdc src/main.o
@@ -11797,7 +11797,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .rodata.main.str1.4
                 0x00409e20       0x61 src/main.o
  *fill*         0x00409e81        0x3 
- .rodata.task_oled.str1.4
+ .rodata.oled_task.str1.4
                 0x00409e84       0x22 src/main.o
  *fill*         0x00409ea6        0x2 
  .rodata.vApplicationStackOverflowHook.str1.4
@@ -12724,7 +12724,7 @@ OUTPUT(RTOS-OLED-Xplained-Pro.elf elf32-littlearm)
  .debug_macro   0x00025f1a      0x97d src/main.o
  .debug_macro   0x00026897       0xd7 src/main.o
 
-.debug_line     0x00000000    0x17c13
+.debug_line     0x00000000    0x17c11
  .debug_line    0x00000000      0xa72 src/ASF/sam/drivers/rtt/rtt.o
  .debug_line    0x00000a72      0xc40 src/ASF/sam/drivers/spi/spi.o
  .debug_line    0x000016b2     0x10bb src/oled/gfx_mono_framebuffer.o
@@ -12753,67 +12753,67 @@ OUTPUT(RTOS-OLED-Xplained-Pro.elf elf32-littlearm)
  .debug_line    0x0001352e     0x11ea src/ASF/thirdparty/freertos/freertos-8.2.3/Source/queue.o
  .debug_line    0x00014718     0x156e src/ASF/thirdparty/freertos/freertos-8.2.3/Source/tasks.o
  .debug_line    0x00015c86      0xdaf src/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.o
- .debug_line    0x00016a35     0x11de src/main.o
+ .debug_line    0x00016a35     0x11dc src/main.o
 
-.debug_str      0x00000000    0x964e0
- .debug_str     0x00000000    0x8198c src/ASF/sam/drivers/rtt/rtt.o
+.debug_str      0x00000000    0x964c9
+ .debug_str     0x00000000    0x81983 src/ASF/sam/drivers/rtt/rtt.o
                               0x82029 (size before relaxing)
- .debug_str     0x0008198c     0x4607 src/ASF/sam/drivers/spi/spi.o
+ .debug_str     0x00081983     0x4607 src/ASF/sam/drivers/spi/spi.o
                               0x8653e (size before relaxing)
- .debug_str     0x00085f93     0x8558 src/oled/gfx_mono_framebuffer.o
+ .debug_str     0x00085f8a     0x8558 src/oled/gfx_mono_framebuffer.o
                               0x8e6c8 (size before relaxing)
- .debug_str     0x0008e4eb      0x255 src/oled/gfx_mono_generic.o
+ .debug_str     0x0008e4e2      0x255 src/oled/gfx_mono_generic.o
                               0x8e80c (size before relaxing)
- .debug_str     0x0008e740      0x266 src/oled/gfx_mono_text.o
+ .debug_str     0x0008e737      0x266 src/oled/gfx_mono_text.o
                               0x8e7e7 (size before relaxing)
- .debug_str     0x0008e9a6      0x11c src/oled/gfx_mono_ug_2832hsweg04.o
+ .debug_str     0x0008e99d      0x11c src/oled/gfx_mono_ug_2832hsweg04.o
                               0x8e7a8 (size before relaxing)
- .debug_str     0x0008eac2      0x612 src/oled/ssd1306.o
+ .debug_str     0x0008eab9      0x612 src/oled/ssd1306.o
                               0x8e3e0 (size before relaxing)
- .debug_str     0x0008f0d4     0x1098 src/oled/sysfont.o
+ .debug_str     0x0008f0cb     0x1098 src/oled/sysfont.o
                               0x83327 (size before relaxing)
- .debug_str     0x0009016c      0x3f1 src/ASF/common/services/clock/same70/sysclk.o
+ .debug_str     0x00090163      0x3f1 src/ASF/common/services/clock/same70/sysclk.o
                               0x865c2 (size before relaxing)
- .debug_str     0x0009055d       0x35 src/ASF/common/services/delay/sam/cycle_counter.o
+ .debug_str     0x00090554       0x35 src/ASF/common/services/delay/sam/cycle_counter.o
                               0x820a4 (size before relaxing)
- .debug_str     0x00090592       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_str     0x00090589       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
                               0x81f74 (size before relaxing)
- .debug_str     0x00090626       0x2c src/ASF/common/utils/stdio/read.o
+ .debug_str     0x0009061d       0x2c src/ASF/common/utils/stdio/read.o
                               0x81f1d (size before relaxing)
- .debug_str     0x00090652       0x26 src/ASF/common/utils/stdio/write.o
+ .debug_str     0x00090649       0x26 src/ASF/common/utils/stdio/write.o
                               0x81f1e (size before relaxing)
- .debug_str     0x00090678      0x63a src/ASF/sam/boards/same70_xplained/init.o
+ .debug_str     0x0009066f      0x63a src/ASF/sam/boards/same70_xplained/init.o
                               0x87224 (size before relaxing)
- .debug_str     0x00090cb2      0x57b src/ASF/sam/drivers/pio/pio.o
+ .debug_str     0x00090ca9      0x57b src/ASF/sam/drivers/pio/pio.o
                               0x82aca (size before relaxing)
- .debug_str     0x0009122d      0x437 src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_str     0x00091224      0x437 src/ASF/sam/drivers/pio/pio_handler.o
                               0x82bec (size before relaxing)
- .debug_str     0x00091664      0x68e src/ASF/sam/drivers/pmc/pmc.o
+ .debug_str     0x0009165b      0x68e src/ASF/sam/drivers/pmc/pmc.o
                               0x82c2e (size before relaxing)
- .debug_str     0x00091cf2      0x29d src/ASF/sam/drivers/uart/uart.o
+ .debug_str     0x00091ce9      0x29d src/ASF/sam/drivers/uart/uart.o
                               0x82224 (size before relaxing)
- .debug_str     0x00091f8f      0xa88 src/ASF/sam/drivers/usart/usart.o
+ .debug_str     0x00091f86      0xa88 src/ASF/sam/drivers/usart/usart.o
                               0x82abc (size before relaxing)
- .debug_str     0x00092a17      0x64c src/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.o
+ .debug_str     0x00092a0e      0x64c src/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.o
                               0x82741 (size before relaxing)
- .debug_str     0x00093063      0x137 src/ASF/sam/utils/cmsis/same70/source/templates/system_same70.o
+ .debug_str     0x0009305a      0x137 src/ASF/sam/utils/cmsis/same70/source/templates/system_same70.o
                               0x7284d (size before relaxing)
- .debug_str     0x0009319a      0x774 src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x00093191      0x774 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                                0x747e (size before relaxing)
- .debug_str     0x0009390e      0x15e src/ASF/thirdparty/freertos/freertos-8.2.3/Source/list.o
+ .debug_str     0x00093905      0x15e src/ASF/thirdparty/freertos/freertos-8.2.3/Source/list.o
                               0x88786 (size before relaxing)
- .debug_str     0x00093a6c      0x7e9 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/portable/GCC/ARM_CM7/r0p1/port.o
+ .debug_str     0x00093a63      0x7e9 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/portable/GCC/ARM_CM7/r0p1/port.o
                               0x895c6 (size before relaxing)
- .debug_str     0x00094255      0x120 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/portable/MemMang/heap_3.o
+ .debug_str     0x0009424c      0x120 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/portable/MemMang/heap_3.o
                               0x88e9c (size before relaxing)
- .debug_str     0x00094375      0x903 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/queue.o
+ .debug_str     0x0009436c      0x903 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/queue.o
                               0x8a349 (size before relaxing)
- .debug_str     0x00094c78     0x109f src/ASF/thirdparty/freertos/freertos-8.2.3/Source/tasks.o
+ .debug_str     0x00094c6f     0x109f src/ASF/thirdparty/freertos/freertos-8.2.3/Source/tasks.o
                               0x8ac8b (size before relaxing)
- .debug_str     0x00095d17      0x483 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.o
+ .debug_str     0x00095d0e      0x483 src/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.o
                               0x8a712 (size before relaxing)
- .debug_str     0x0009619a      0x346 src/main.o
-                              0x90710 (size before relaxing)
+ .debug_str     0x00096191      0x338 src/main.o
+                              0x90702 (size before relaxing)
 
 .debug_frame    0x00000000     0x3b1c
  .debug_frame   0x00000000       0xac src/ASF/sam/drivers/rtt/rtt.o
@@ -13375,7 +13375,7 @@ atexit                                            c:/program files (x86)/atmel/s
                                                   c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/crt0.o
 board_init                                        src/ASF/sam/boards/same70_xplained/init.o
                                                   src/main.o
-but_callback                                      src/main.o
+button_callback                                   src/main.o
 cleanup_glue                                      c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m\libc.a(lib_a-reent.o)
 cpu_irq_enter_critical                            src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
 cpu_irq_leave_critical                            src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
