@@ -33,8 +33,8 @@ extern void vApplicationTickHook(void);
 extern void vApplicationMallocFailedHook(void);
 extern void xPortSysTickHandler(void);
 
-void button_callback(void);
-void echo_callback(void);
+void BUTTON_callback(void);
+void ECHO_callback(void);
 static void BUTTON_init(void);
 static void my_rtt_init(float freqPrescale, uint32_t IrqNPulses, uint32_t rttIRQSource);
 static void configure_console(void);
@@ -60,12 +60,12 @@ SemaphoreHandle_t xSemaphore = NULL;
 QueueHandle_t xQueue = NULL;
 
 // HANDLERS / CALLBACKS
-void button_callback(void) {
+void BUTTON_callback(void) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     xSemaphoreGiveFromISR(xSemaphore, &xHigherPriorityTaskWoken);
 }
 
-void echo_callback(void) {
+void ECHO_callback(void) {
     if (pio_get(ECHO_PIO, PIO_INPUT, ECHO_PIN_MASK) == 1) {
         my_rtt_init(8200, 8200, 0);
     } else {
@@ -78,9 +78,9 @@ void echo_callback(void) {
 // TASKS
 static void oled_task(void *pvParameters) {
     gfx_mono_ssd1306_init();
-    float distance;
+    float distancia;
     uint32_t ticks;
-    char str[32];
+    char dist_str[32];
 
     for (;;) {
         if (xSemaphoreTake(xSemaphore, (TickType_t)500) == pdTRUE) {
@@ -89,11 +89,13 @@ static void oled_task(void *pvParameters) {
             pio_clear(TRIGGER_PIO, TRIGGER_PIN_MASK);
 
             if (xQueueReceive(xQueue, &ticks, (TickType_t)500) == pdTRUE) {
-                distance = (((float)ticks) * 340.0) / (2.0 * 10000.0); //8200
-                distance = distance * 100;
-                printf("Distance: %f cm\n", distance);
-                sprintf(str, "%6.f", distance);
-                gfx_mono_draw_string(str, 25, 12, &sysfont);
+                distancia = (((float)ticks) * 340.0) / (2.0 * 10000.0); //8200
+                distancia = distancia * 100;
+
+                sprintf(dist_str, "%6.f", distancia);
+				printf("Distancia: %f cm\n", distancia);
+                
+				gfx_mono_draw_string(dist_str, 25, 12, &sysfont);
                 gfx_mono_draw_string(" cm  ", 65, 12, &sysfont);
             }
         }
@@ -119,7 +121,7 @@ static void BUTTON_init(void) {
     pio_configure(BUTTON_PIO, PIO_INPUT, BUTTON_PIN_MASK, PIO_PULLUP | PIO_DEBOUNCE);
     pio_set_debounce_filter(BUTTON_PIO, BUTTON_PIN_MASK, 60);
 
-    pio_handler_set(BUTTON_PIO, BUTTON_PIO_ID, BUTTON_PIN_MASK, PIO_IT_FALL_EDGE, button_callback);
+    pio_handler_set(BUTTON_PIO, BUTTON_PIO_ID, BUTTON_PIN_MASK, PIO_IT_FALL_EDGE, BUTTON_callback);
 
     pio_enable_interrupt(BUTTON_PIO, BUTTON_PIN_MASK);
     pio_get_interrupt_status(BUTTON_PIO);
@@ -131,7 +133,7 @@ static void BUTTON_init(void) {
 static void ECHO_init(void) {
     pmc_enable_periph_clk(ECHO_PIO_ID);
     pio_configure(ECHO_PIO, PIO_INPUT, ECHO_PIN_MASK, PIO_DEFAULT);
-    pio_handler_set(ECHO_PIO, ECHO_PIO_ID, ECHO_PIN_MASK, PIO_IT_EDGE, echo_callback);
+    pio_handler_set(ECHO_PIO, ECHO_PIO_ID, ECHO_PIN_MASK, PIO_IT_EDGE, ECHO_callback);
     pio_enable_interrupt(ECHO_PIO, ECHO_PIN_MASK);
     pio_get_interrupt_status(ECHO_PIO);
     NVIC_EnableIRQ(ECHO_PIO_ID);
@@ -160,10 +162,13 @@ static void my_rtt_init(float freqPrescale, uint32_t IrqNPulses, uint32_t rttIRQ
     NVIC_SetPriority(RTT_IRQn, 4);
     NVIC_EnableIRQ(RTT_IRQn);
 
-    if (rttIRQSource & (RTT_MR_RTTINCIEN | RTT_MR_ALMIEN))
-        rtt_enable_interrupt(RTT, rttIRQSource);
-    else
-        rtt_disable_interrupt(RTT, RTT_MR_RTTINCIEN | RTT_MR_ALMIEN);
+	if (rttIRQSource & (RTT_MR_RTTINCIEN | RTT_MR_ALMIEN)){
+		rtt_enable_interrupt(RTT, rttIRQSource);
+		}
+	else{
+		rtt_disable_interrupt(RTT, RTT_MR_RTTINCIEN | RTT_MR_ALMIEN);
+		}
+
 }
 
 // MAIN
